@@ -1,43 +1,35 @@
 def merge_sort (array)	
-	#puts "Trying to merge sort #{array}"
-	items = array.length
-	first = [], second = []
-
-	if items > 1
-		first = merge_sort(array[0...items/2])	
-		second = merge_sort(array[items/2..items])
-	elsif items == 1
-		first = array
-		second = []
-	end
+	size = array.length
 	
+	first = array
+	second = []
+
+	if size > 1
+		first = merge_sort(array[0...size/2])	
+		second = merge_sort(array[size/2..size])
+	end
+
 	merge(first, second)	
 end
 
 # Merge two sorted arrays into another array and return it
 def merge(first, second)
 	merged = []
+	
+	first_length = first.length
+	second_length = second.length
 
-	if first.nil?
-		merged = second
-	elsif second.nil?
-		merged = first
-	else
-		first_length = first.length
-		second_length = second.length
-
-		# compare the first items of both input arrays
-		# slice the lowest value off the front and stick it in the merged array
-		# repeat until the merged array is filled up
-		loop do	
-			if ( min(first[0], second[0]) == first[0] )				
-				merged << first.shift
-			elsif ( min(first[0], second[0]) == second[0] )
-				merged << second.shift
-			end
-
-			break if merged.length == first_length + second_length
+	# compare the first items of both input arrays
+	# slice the lowest value off the front and stick it in the merged array
+	# repeat until the merged array is filled up
+	loop do	
+		if ( min(first[0], second[0]) == first[0] )				
+			merged << first.shift
+		elsif ( min(first[0], second[0]) == second[0] )
+			merged << second.shift
 		end
+
+		break if merged.length == first_length + second_length
 	end
 
 	merged
